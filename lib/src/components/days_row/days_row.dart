@@ -84,11 +84,7 @@ class _DayCell extends HookConsumerWidget {
         },
         child: DecoratedBox(
           decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: Theme.of(context).dividerColor, width: 1),
-              right:
-                  BorderSide(color: Theme.of(context).dividerColor, width: 1),
-            ),
+            border: Border.all(color: Color(0xffdddddd), width: 1),
           ),
           child: MeasureSize(
             onChange: (size) {
