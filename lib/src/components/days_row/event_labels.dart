@@ -97,15 +97,17 @@ class _EventLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 4, bottom: 3),
-      height: 13,
+      margin: EdgeInsets.only(left: 3, right: 3, bottom: 3),
+      height: 21,
       width: double.infinity,
       color: event.eventBackgroundColor,
-      child: Text(
-        event.eventName,
-        style: event.eventTextStyle,
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
+      child: Center(
+        child: Text(
+          event.eventName,
+          style: event.eventTextStyle,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }
