@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'event_labels.dart';
 import 'measure_size.dart';
+import 'package:intl/intl.dart';
 
 final cellHeightProvider = StateProvider<double?>((ref) => null);
 
@@ -186,6 +187,16 @@ class _DayLabel extends StatelessWidget {
         fontWeight: FontWeight.w500,
         color: Theme.of(context).colorScheme.onSurface);
     final textStyle = caption.merge(dateTextStyle);
+
+    final d = DateFormat('EEEE').format(date);
+
+    Color color = textStyle.color ?? Colors.black;
+    if (d == 'Saturday') {
+      color = Colors.blue;
+    } else if (d == 'Sunday') {
+      color = Colors.red;
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: dayLabelVerticalMargin.toDouble()),
       height: dayLabelContentHeight.toDouble(),
@@ -193,9 +204,7 @@ class _DayLabel extends StatelessWidget {
         date.day.toString(),
         textAlign: TextAlign.center,
         style: textStyle.copyWith(
-          color: isCurrentMonth
-              ? textStyle.color
-              : textStyle.color!.withOpacity(0.4),
+          color: isCurrentMonth ? color : color!.withOpacity(0.4),
         ),
       ),
     );
