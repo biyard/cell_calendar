@@ -148,7 +148,7 @@ class _CalendarPageView extends HookConsumerWidget {
 ///
 /// Wrapped with [CalendarMonthController]
 class _CalendarPage extends StatelessWidget {
-  const _CalendarPage({
+  _CalendarPage({
     Key? key,
     required this.visiblePageDate,
     required this.daysOfTheWeekBuilder,
@@ -157,6 +157,7 @@ class _CalendarPage extends StatelessWidget {
     required this.todayMarkColor,
     required this.todayTextColor,
     required this.events,
+    this.dateNum,
   }) : super(key: key);
 
   final DateTime visiblePageDate;
@@ -166,8 +167,10 @@ class _CalendarPage extends StatelessWidget {
   final Color todayMarkColor;
   final Color todayTextColor;
   final List<CalendarEvent> events;
+  int? dateNum = 0;
 
   List<DateTime> _getCurrentDays(DateTime dateTime) {
+    dateNum = 0;
     final List<DateTime> result = [];
     final firstDay = _getFirstDay(dateTime);
     result.add(firstDay);
@@ -179,6 +182,9 @@ class _CalendarPage extends StatelessWidget {
 
   DateTime _getFirstDay(DateTime dateTime) {
     final firstDayOfTheMonth = DateTime(dateTime.year, dateTime.month, 1);
+    dateNum =
+        (firstDayOfTheMonth.weekday.daysDuration.inHours.abs() / 24).toInt() +
+            DateTime(dateTime.year, dateTime.month + 1, 0).day;
     return firstDayOfTheMonth.add(firstDayOfTheMonth.weekday.daysDuration);
   }
 
@@ -192,7 +198,7 @@ class _CalendarPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: List.generate(
-              6,
+              (dateNum == null || dateNum! > 35) ? 6 : 5,
               (index) {
                 return DaysRow(
                   visiblePageDate: visiblePageDate,
